@@ -1,20 +1,48 @@
 "use strict";
 
-// Setup Canvas
+let snake, food, gameLoop, gameOn;
+
+// Check if window is current tab
+function isPageHidden(){
+    return document.hidden || document.msHidden || document.webkitHidden || document.mozHidden;
+}
+
+// Game Loop
+function update() {
+    snake.move();
+
+    if (!isPageHidden()) {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        snake.draw();
+        food.draw();
+    }
+}
+
+function gameStart() {
+    if (gameOn) {
+        gameOver();
+    }
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    snake = new Snake();
+    food = new Food();
+    gameLoop = setInterval(update, FRAMERATE);
+    gameOn = true;
+}
+
+function gameOver() {
+    gameOn = false;
+    clearInterval(gameLoop);
+    let score = snake.body.length - 3;
+    console.log("You scored " + score + " points!");
+}
+
+
+// Create Canvas
 const canvas = document.createElement("canvas");
 const ctx = canvas.getContext('2d');
 canvas.setAttribute("width", WIDTH);
 canvas.setAttribute("height", HEIGHT);
-
-// Create Canvas
-const gameWindow = document.querySelector("#game-window");
-gameWindow.appendChild(canvas);
-
-// Create Player
-const snake = new Snake();
-
-let foodTimer = 0;
-let food = null;
+document.querySelector("#game-window").appendChild(canvas);
 
 // Player Inputs
 window.onkeydown = function(e) {
@@ -45,36 +73,4 @@ window.onkeydown = function(e) {
     }
 }
 
-// Game Loop
-function update() {
-    ctx.clearRect(0, 0, WIDTH, HEIGHT);
-    snake.update();
-    
-    if (food) {
-        food.draw();
-    }
-
-    if (!food) {
-        foodTimer += FRAMERATE;
-        if (foodTimer > FOOD_RESETRATE) {
-            let randomX = Math.floor(Math.random() * (GAME_COLUMNS + 1));
-            let randomY = Math.floor(Math.random() * (GAME_ROWS + 1));
-            food = new Food(randomX, randomY);
-            foodTimer = 0;
-        }
-    }
-
-}
-
-function gameStart() {
-    setInterval(update, FRAMERATE);
-}
-
-// Game Over
-function gameOver(score) {
-    clearInterval(update);
-    console.log("You scored " + score + " points!");
-}
-
-// Run the Game
 gameStart();

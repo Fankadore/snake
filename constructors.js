@@ -11,20 +11,15 @@ function Snake() {
     this.direction = 'right';
     this.newDirection = this.direction;
     this.body = [new Body(START_X, START_Y), new Body(START_X - 1, START_Y), new Body(START_X - 2, START_Y)];
-    this.grow = false;
     this.draw();
 }
 
 Snake.prototype.move = function() {
     let bodyLength = this.body.length;
     let head = this.body[0];
-
-    // Check if Body should Grow
-    if (this.grow) {
-        let tail = this.body[bodyLength - 1];
-        this.body.push(new Body(tail.x, tail.y));
-        this.grow = false;
-    }
+    let tail = this.body[bodyLength - 1];
+    let retainTailX = tail.x;
+    let retainTailY = tail.y;
 
     // Move Body
     for (let i = bodyLength - 1; i > 0; i--) {
@@ -47,19 +42,27 @@ Snake.prototype.move = function() {
     }
     this.direction = this.newDirection;
 
-    // Check Collisions
+    // Check Collision Head with Body
     for (let currentBody of this.body) {
         if (head !== currentBody && head.x === currentBody.x && head.y === currentBody.y) {
-            gameOver(this.body.length - 3);
-            break;
+            return gameOver();
         }
     }
-    if (food) {
-        if (head.x === food.x && head.y === food.y) {
-            this.grow = true;
-            food = null;
+
+    // Check Collision Head with Food
+    if (head.x === food.x && head.y === food.y) {
+        this.body.push(new Body(retainTailX, retainTailY));
+        food.move();
+    }
+};
+
+Snake.prototype.checkCollision = function(x, y) {
+    for (let currentBody of this.body) {
+        if (currentBody.x === x && currentBody.y === y) {
+            return true;
         }
     }
+    return false;
 };
 
 Snake.prototype.draw = function() {
@@ -69,16 +72,21 @@ Snake.prototype.draw = function() {
     });
 };
 
-Snake.prototype.update = function() {
+
+function Food() {
+    this.colour = '#ff0000';
     this.move();
     this.draw();
-};
+}
 
-
-function Food(x, y) {
-    this.x = x;
-    this.y = y;
-    this.colour = '#ff0000';
+Food.prototype.move = function() {
+    let randomX, randomY;
+    do {
+        randomX = Math.floor(Math.random() * (GAME_COLUMNS + 1));
+        randomY = Math.floor(Math.random() * (GAME_ROWS + 1));
+    } while (snake.checkCollision(randomX, randomY) === true);
+    this.x = randomX;
+    this.y = randomY;
 }
 
 Food.prototype.draw = function() {
