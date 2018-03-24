@@ -17,6 +17,7 @@ function Snake() {
 
 Snake.prototype.move = function() {
     let bodyLength = this.body.length;
+    let head = this.body[0];
 
     // Check if Body should Grow
     if (this.grow) {
@@ -32,7 +33,6 @@ Snake.prototype.move = function() {
     }
 
     // Move Head
-    let head = this.body[0];
     if (this.newDirection === 'left') {
         head.x = (head.x - 1 < 0) ? GAME_COLUMNS : head.x - 1;
     }
@@ -45,18 +45,43 @@ Snake.prototype.move = function() {
     else if (this.newDirection === 'down') {
         head.y = (head.y + 1 > GAME_ROWS) ? 0 : head.y + 1;
     }
-
     this.direction = this.newDirection;
-}
+
+    // Check Collisions
+    for (let currentBody of this.body) {
+        if (head !== currentBody && head.x === currentBody.x && head.y === currentBody.y) {
+            gameOver(this.body.length - 3);
+            break;
+        }
+    }
+    if (food) {
+        if (head.x === food.x && head.y === food.y) {
+            this.grow = true;
+            food = null;
+        }
+    }
+};
 
 Snake.prototype.draw = function() {
     ctx.fillStyle = this.colour;
     this.body.forEach(function(currentBody) {
         ctx.fillRect(currentBody.x * TILE_SIZE, currentBody.y * TILE_SIZE, TILE_SIZE, TILE_SIZE);
     });
-}
+};
 
 Snake.prototype.update = function() {
     this.move();
     this.draw();
+};
+
+
+function Food(x, y) {
+    this.x = x;
+    this.y = y;
+    this.colour = '#ff0000';
 }
+
+Food.prototype.draw = function() {
+    ctx.fillStyle = this.colour;
+    ctx.fillRect(this.x * TILE_SIZE, this.y * TILE_SIZE, TILE_SIZE, TILE_SIZE);
+};

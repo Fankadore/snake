@@ -1,12 +1,22 @@
 "use strict";
 
-const canvas = document.querySelector('#game-window');
+// Setup Canvas
+const canvas = document.createElement("canvas");
+const ctx = canvas.getContext('2d');
 canvas.setAttribute("width", WIDTH);
 canvas.setAttribute("height", HEIGHT);
-const ctx = canvas.getContext('2d');
 
+// Create Canvas
+const gameWindow = document.querySelector("#game-window");
+gameWindow.appendChild(canvas);
+
+// Create Player
 const snake = new Snake();
 
+let foodTimer = 0;
+let food = null;
+
+// Player Inputs
 window.onkeydown = function(e) {
     //console.log(e.keyCode);
     if (e.keyCode === 37 || e.keyCode === 65) {         // left arrow or A
@@ -35,8 +45,36 @@ window.onkeydown = function(e) {
     }
 }
 
+// Game Loop
 function update() {
     ctx.clearRect(0, 0, WIDTH, HEIGHT);
     snake.update();
+    
+    if (food) {
+        food.draw();
+    }
+
+    if (!food) {
+        foodTimer += FRAMERATE;
+        if (foodTimer > FOOD_RESETRATE) {
+            let randomX = Math.floor(Math.random() * (GAME_COLUMNS + 1));
+            let randomY = Math.floor(Math.random() * (GAME_ROWS + 1));
+            food = new Food(randomX, randomY);
+            foodTimer = 0;
+        }
+    }
+
 }
-setInterval(update, FRAMERATE);
+
+function gameStart() {
+    setInterval(update, FRAMERATE);
+}
+
+// Game Over
+function gameOver(score) {
+    clearInterval(update);
+    console.log("You scored " + score + " points!");
+}
+
+// Run the Game
+gameStart();
