@@ -42,7 +42,7 @@ const canvas = document.createElement("canvas");
 const ctx = canvas.getContext('2d');
 canvas.setAttribute("width", WIDTH);
 canvas.setAttribute("height", HEIGHT);
-document.querySelector("#game-window").appendChild(canvas);
+document.querySelector(".game-window").appendChild(canvas);
 
 // Player Inputs
 window.onkeydown = function(e) {

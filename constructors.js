@@ -6,11 +6,9 @@ function Body(x, y) {
 }
 
 function Snake() {
-    this.colour = '#00ff00';
-    this.speed = 1;
+    this.body = [new Body(START_X, START_Y), new Body(START_X - 1, START_Y), new Body(START_X - 2, START_Y)];
     this.direction = 'right';
     this.newDirection = this.direction;
-    this.body = [new Body(START_X, START_Y), new Body(START_X - 1, START_Y), new Body(START_X - 2, START_Y)];
     this.draw();
 }
 
@@ -66,9 +64,11 @@ Snake.prototype.checkCollision = function(x, y) {
 };
 
 Snake.prototype.draw = function() {
-    ctx.fillStyle = this.colour;
+    ctx.fillStyle = '#00ff00';
+    ctx.strokeStyle = '#009900';
     this.body.forEach(function(currentBody) {
         ctx.fillRect(currentBody.x * TILE_SIZE, currentBody.y * TILE_SIZE, TILE_SIZE, TILE_SIZE);
+        ctx.strokeRect(currentBody.x * TILE_SIZE, currentBody.y * TILE_SIZE, TILE_SIZE, TILE_SIZE);
     });
 };
 

@@ -1,4 +1,25 @@
 canvas {
     border: 1px solid #000;
-    background: #000;
+    background: #fff;
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-auto-columns: auto;
+    grid-auto-rows: auto;
+    justify-items: stretch;
+    align-items: stretch;
+}
+
+.game-window {
+    grid-column: 1;
+    grid-row: 1;
+    background: '#ff0000';
+}
+
+.info {
+    grid-column: 2;
+    grid-row: 1;
+    background: '#0000ff';
 }
