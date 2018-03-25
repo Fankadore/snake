@@ -9,14 +9,31 @@
 </head>
 <body>
     <div class="grid-container">
-        <div class="game-window"></div>
-        <div class="info">
-            <h1>Browser Snake</h1>
-            <p>Game of snake in the browser using HTML5 canvas.</p>
-            <p>Source: <a href="https://github.com/Fankadore/snake">https://github.com/Fankadore/snake</a></p>
-        </div>
+        <canvas class="game-window"></canvas>
+
+        <section class="info">
+            <header>
+                <h1>Browser Snake</h1>
+                <p>Source: <a href="https://github.com/Fankadore/snake">https://github.com/Fankadore/snake</a></p>
+            </header>
+
+            <section>
+                <p> Game of snake in the browser using HTML5 canvas and plain Javascript.<br>
+                    The game window will fit to half the width and the full height of the browser when refreshed.<br>
+                    Will only render changes while tab is active, but will continue to track game logic.<br>
+                    <br>
+                    Ruaidhri MacKenzie - 2018
+                </p>
+            </section>
+
+            <form>
+                <span>Tile Size</span><input class="tile-size" type="number" value="32"><br>
+                <span>Background</span><input class="background" type="color" value="#ffffff"><br>
+                <button>New Game</button>
+            </form>
+        </section>
     </div>
-    <script type="text/javascript" src="config.js"></script>
+    <script type="text/javascript" src="load.js"></script>
     <script type="text/javascript" src="constructors.js"></script>
     <script type="text/javascript" src="game.js"></script>
 </body>
