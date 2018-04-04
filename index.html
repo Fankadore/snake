@@ -26,15 +26,40 @@
                 </p>
             </section>
 
-            <form>
-                <span>Tile Size</span><input class="tile-size" type="number" value="32"><br>
-                <span>Background</span><input class="background" type="color" value="#ffffff"><br>
-                <button>New Game</button>
-            </form>
+            <div class="options-grid">
+                <div class="grid-1-1">
+                    Background
+                </div>
+                <div class="grid-1-2">
+                    <input class="background" type="color" value="#ffffff" onchange="changeBackground()">
+                </div>
+                <div class="grid-2-1">
+                    Tile Size
+                </div>
+                <div class="grid-2-2">
+                    <input class="tile-size" type="number" placeholder="auto" onblur="refreshTileSize()">
+                </div>
+                <div class="grid-3-1">
+                    Columns
+                </div>
+                <div class="grid-3-2">
+                        <input class="input-columns" type="number" placeholder="auto" onblur="refreshColumns()">
+                </div>
+                <div class="grid-4-1">
+                    Rows
+                </div>
+                <div class="grid-4-2">
+                        <input class="input-rows" type="number" placeholder="auto" onblur="refreshRows()">
+                </div>
+                <div class="grid-5-1">
+                    <button class="new-game" type="button">New Game</button>
+                </div>
+            </div>
         </section>
     </div>
-    <script type="text/javascript" src="load.js"></script>
-    <script type="text/javascript" src="constructors.js"></script>
     <script type="text/javascript" src="game.js"></script>
+    <script type="text/javascript" src="ui.js"></script>
+    <script type="text/javascript" src="constructors.js"></script>
+    <script type="text/javascript" src="load.js"></script>
 </body>
 </html>

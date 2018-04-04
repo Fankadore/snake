@@ -3,31 +3,75 @@ html, body {
     margin: 0;
 }
 
-canvas {
-    border: 1px solid #000;
-    background: #fff;
-}
-
 .grid-container {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    grid-auto-columns: auto;
     grid-auto-rows: auto;
-    justify-items: stretch;
-    align-items: stretch;
 }
 
-.game-window {
-    grid-column: 1;
-    grid-row: 1 / 3;
-}
+    .game-window {
+        grid-column: 1;
+        grid-row: 1 / 3;
+        border: 1px solid #000;
+        background: #fff;
+    }
 
-.info {
-    grid-column: 2;
-    grid-row: 1 / 2;
-    margin-left: 8px;
-}
+    .info {
+        grid-column: 2;
+        grid-row: 1 / 2;
+        margin-left: 8px;
+    }
 
-form span {
-    margin-right: 8px;
-}
+        .options-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-auto-rows: auto;
+        }
+            .grid-1-1 {
+                grid-column: 1 / 2;
+                grid-row: 1 / 2;
+            }
+            .grid-1-2 {
+                grid-column: 2 / 3;
+                grid-row: 1 / 2;
+            }
+                .tile-size {
+                    width: 40px;
+                }
+            .grid-2-1 {
+                grid-column: 1 / 2;
+                grid-row: 2 / 3;
+            }
+            .grid-2-2 {
+                grid-column: 2 / 3;
+                grid-row: 2 / 3;
+            }
+                .background {
+                    width: 38px;
+                }
+            .grid-3-1 {
+                grid-column: 1 / 2;
+                grid-row: 3 / 4;
+            }
+            .grid-3-2 {
+                grid-column: 2 / 3;
+                grid-row: 3 / 4;
+            }
+                .input-columns {
+                    width: 40px;
+                }
+            .grid-4-1 {
+                grid-column: 1 / 2;
+                grid-row: 4 / 5;
+            }
+            .grid-4-2 {
+                grid-column: 2 / 3;
+                grid-row: 4 / 5;
+            }
+                .input-rows {
+                    width: 40px;
+                }
+            .grid-5-1 {
+                grid-column: 1 / 2;
+                grid-row: 5 / 6;
+            }
