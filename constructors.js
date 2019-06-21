@@ -11,7 +11,7 @@ function Snake() {
 
 function Body(x, y) {
     this.x = x;
-    this.y = y
+    this.y = y;
 }
 
 Snake.prototype.move = function() {
